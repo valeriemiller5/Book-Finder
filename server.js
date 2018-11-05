@@ -13,9 +13,8 @@ app.use(express.json());
 app.use(express.static("client/build"));
 
 // ***********MONGOOSE SETUP FOR HEROKU DEPLOYMENT***********
-// mongoose.connect("mongodb://localhost/newsdatabase", { useNewUrlParser: true });
 // If deployed, use the deployed database. Otherwise use the local mongoHeadlines database
-const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/newsdatabase";
+const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/googlebooks";
 
 mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
 
