@@ -1,8 +1,10 @@
 import React from "react";
+import "./Jumbotron.css"
 
-const Jumbotron = ({ children }) => (
-    <div style={{ height: 300, width: "75%", marginLeft: 150, clear: "both", paddingTop: 120, textAlign: "center" }} className="jumbotron jumbotron-fluid">
-        {children}
+const Jumbotron = props => (
+    <div className="jumbotron jumbotron-fluid">
+        <h1>Google Book Search</h1>
+        {props.message}
     </div>
 );
 
