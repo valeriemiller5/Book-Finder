@@ -2,7 +2,7 @@ import React from "react";
 import "./Form.css";
 
 export const FormBtn = props => (
-  <button {...props} className="btn btn-lg btn-success input-lg">
+  <button {...props} className="btn btn-lg btn-info input-lg">
     {props.children || "Search"} 
   </button>
 );

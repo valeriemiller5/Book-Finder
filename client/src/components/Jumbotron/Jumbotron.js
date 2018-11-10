@@ -1,10 +1,10 @@
 import React from "react";
-import "./Jumbotron.css"
+import "./Jumbotron.css";
 
 const Jumbotron = props => (
-    <div className="jumbotron jumbotron-fluid">
+    <div className=" jumbotron jumbotron-fluid" {...props}>
         <h1>Google Book Search</h1>
-        {props.message}
+        <h3>{props.message}</h3>
     </div>
 );
 

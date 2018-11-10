@@ -1,5 +1,4 @@
 import React from "react";
-import "./BookList.css"
 
 // Creates an unordered list to store each book as a list item
 export const BookList = props => (

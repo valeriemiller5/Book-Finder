@@ -1,6 +1,5 @@
 // Require the mongoose Node package:
-import mongoose from "mongoose"
-
+const mongoose = require("mongoose");
 const Schema = mongoose.Schema;
 
 // Create the schema model for the database:

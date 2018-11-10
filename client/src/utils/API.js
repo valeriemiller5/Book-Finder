@@ -2,21 +2,17 @@ import axios from "axios";
 
 export default {
     // Get all books based upon search parameters
-    getBooks = query => {
-        return axios.get("/api/books", { params: { q: query } });
+    getBooks: function(query) {
+        return axios.get("/api/books", query);
     },
 
     // Save a book to the database
-    saveBook = bookData => {
+    saveBook: function(bookData) {
         return axios.post("/api/books", bookData);
     },
 
     // Delete a book from the database
-    deleteBook = id => {
+    deleteBook: function(id) {
         return axios.delete("/api/books", id);
-    }, 
-
-    loadHome = () => {
-        return axios.get("*");
     }
 };
