@@ -3,7 +3,7 @@ import axios from "axios";
 export default {
     // Get all books based upon search parameters
     getBooks: function(query) {
-        return axios.get("/api/books", query);
+        return axios.get(`/api/books/${query}`)
     },
 
     // Save a book to the database

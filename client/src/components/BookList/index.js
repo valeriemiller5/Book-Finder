@@ -1,4 +1,4 @@
 export * from "./BookList";
-export * from "./EachBook";
+export * from "./ListItem";
 
-// Exporting the BookList and EachBook components from this folder
+// Exporting the BookList and ListItem components from this folder
