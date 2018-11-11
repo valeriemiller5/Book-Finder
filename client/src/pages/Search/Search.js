@@ -5,7 +5,7 @@ import Navbar from "../../components/Navbar";
 import API from "../../utils/API";
 import { Input, FormBtn } from "../../components/Form";
 import { Container, Col, Row } from "../../components/Grid";
-import { BookList, ListItem } from "../../components/BookList";
+import { BookList } from "../../components/BookList";
 // import { Link } from "react-router-dom"
 
 
@@ -66,18 +66,20 @@ class Search extends Component {
                     <Row>
                         <Col size="xs-12">
                             <BookList>
+                            <h4>Search Results:</h4>
                                 {this.state.books.map(book => (
                                     <li key={book.id}>
                                         <div className="card-deck">
                                             <div className="card">
                                                 <div className="form horiz">
-                                                <img src={book.volumeInfo.thumbnail} />
+                                                <img className="coverImage" alt="coverimage" src={book.volumeInfo.imageLinks.thumbnail} />
                                                     <button className="btn btn-default saveBtn">Save Book</button>
                                                     <a className="btn btn-default infoBtn" href={book.volumeInfo.infoLink} target="_blank">Book Info</a>
                                                 </div>
                                                 <div className="card-body">
                                                 <h5 className="card-title">{book.volumeInfo.title}</h5>
-                                                <p className="card-text">{book.volumeInfo.description}</p>
+                                                <h6 className="card-title">By: {book.volumeInfo.authors}</h6>
+                                                <p className="card-text">{book.volumeInfo.description || "No description available for this title"}</p>
                                                 </div>
                                             </div>
                                         </div>
