@@ -10,12 +10,12 @@ const Navbar = () => (
             </a>
         </li>
         <li className="nav-item active">
-            <a className="nav-link" href="/search">
+            <a className="nav-link" href="/books">
                 Search
             </a>
         </li>
         <li className="nav-item active">
-            <a className="nav-link" href="/saved">
+            <a className="nav-link" href="/books/:id">
                 Saved
             </a>
         </li>

@@ -1,7 +1,7 @@
 import React from "react";
+import "./List.css";
 
-// Creates an unordered list to store each book as a list item
-export const BookList = ({ children }) => {
+export const List = ({ children }) => {
   return (
     <div className="list-overflow-container">
       <ul className="list-group">

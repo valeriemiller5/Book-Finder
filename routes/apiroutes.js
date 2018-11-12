@@ -18,6 +18,7 @@ router.route("/")
 // Matches with "/api/books/:id"
 router
   .route("/:id")
+  .post(booksController.create)
   .put(booksController.update)
   .delete(booksController.delete);
 

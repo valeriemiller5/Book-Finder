@@ -1,18 +1,22 @@
 import React, { Component } from "react";
-import "./Search.css"
 import Jumbotron from "../../components/Jumbotron";
 import Navbar from "../../components/Navbar";
 import API from "../../utils/API";
 import { Input, FormBtn } from "../../components/Form";
 import { Container, Col, Row } from "../../components/Grid";
-import { BookList } from "../../components/BookList";
-// import { Link } from "react-router-dom"
+import { List, ListItem } from "../../components/List";
 
 
 class Search extends Component {
     state = {
         books: [],
-        bookSearch: ""
+        bookSearch: "",
+        title: "", 
+        author: "", 
+        description: "",
+        link: "",
+        image: "",
+        saved: false
     };
 
     handleInput = event => {
@@ -22,14 +26,48 @@ class Search extends Component {
         })
     };
 
-    handleSubmitBook = event => {
-        event.preventDefault();
+    loadBooks = () => {
         API.getBooks(this.state.bookSearch)
         .then(res => {
             console.log(res.data.items);
-            this.setState({ books: res.data.items });
+            this.setState({ 
+                books: res.data.items, 
+                title: "", 
+                author: "", 
+                description: "", 
+                link: "", 
+                image: "" 
+            });
         })
         .catch(err => console.log(err))
+    }
+
+    handleSaveBook = event => {
+        event.preventDefault();
+        API.saveBook({
+            title: this.state.title,
+            author: this.state.author,
+            description: this.state.description,
+            link: this.state.link,
+            image: this.state.image,
+            saved: true
+        })
+        .then(res => {
+            console.log("book has been saved")
+            this.loadBooks()
+        })
+        .catch(err => console.log(err));    
+    };
+
+    handleSubmitBook = event => {
+        event.preventDefault();
+        this.loadBooks();
+        // API.getBooks(this.state.bookSearch)
+        // .then(res => {
+        //     console.log(res.data.items);
+        //     this.setState({ books: res.data.items });
+        // })
+        // .catch(err => console.log(err))
     };
 
     render() {
@@ -63,31 +101,32 @@ class Search extends Component {
                     </Row>
                     <br></br>
                     <Container>
-                    <Row>
+                    <h4>Search Results:</h4>
+                    <br></br>
+            {/* Comments: If there are search results, they are displayed. Otherwise app requests user to make a query.
+            Results appear in a scrolling container to help the user scroll through the results and keep the search form in view. */}
+                    {this.state.books.length ? (
+                        <Row>
                         <Col size="xs-12">
-                            <BookList>
-                            <h4>Search Results:</h4>
+                            <List>
                                 {this.state.books.map(book => (
-                                    <li key={book.id}>
-                                        <div className="card-deck">
-                                            <div className="card">
-                                                <div className="form horiz">
-                                                <img className="coverImage" alt="coverimage" src={book.volumeInfo.imageLinks.thumbnail} />
-                                                    <button className="btn btn-default saveBtn">Save Book</button>
-                                                    <a className="btn btn-default infoBtn" href={book.volumeInfo.infoLink} target="_blank">Book Info</a>
-                                                </div>
-                                                <div className="card-body">
-                                                <h5 className="card-title">{book.volumeInfo.title}</h5>
-                                                <h6 className="card-title">By: {book.volumeInfo.authors}</h6>
-                                                <p className="card-text">{book.volumeInfo.description || "No description available for this title"}</p>
-                                                </div>
-                                            </div>
-                                        </div>
-                                    </li> 
+                                    <ListItem 
+                                        key={book.id}
+                                        title={book.volumeInfo.title}
+                                        author={book.volumeInfo.authors}
+                                        description={book.volumeInfo.description}
+                                        image={book.volumeInfo.imageLinks.thumbnail}
+                                        link={book.volumeInfo.infoLink}
+                                        buttonName="Save Book"
+                                        click={this.handleSaveBook}>
+                                    </ListItem>
                                 ))}
-                            </BookList>
+                            </List>
                         </Col>
                     </Row>
+                    ) : (
+                        <h5>Please Search for a Book by Title</h5>
+                    )}
                     </Container>
                 </Container>
             </div>
