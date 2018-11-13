@@ -20,7 +20,7 @@ class Search extends Component {
         })
     };
 
-    saveBook = req => {
+    loadBook = req => {
         this.state.books.map(book => {
             let newBook = book.volumeInfo;
             console.log(book.id);
@@ -33,7 +33,7 @@ class Search extends Component {
             })
             .then(res => {
                 console.log(res);
-                return res;
+                return res.render();
             })
             .catch(err => console.log(err))
         });    
@@ -50,7 +50,7 @@ class Search extends Component {
         })
         .then(response => {
             console.log(response);
-            this.saveBook();
+            this.loadBook();
         })
         .catch(err => console.log(err))
     };
