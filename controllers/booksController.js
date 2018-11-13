@@ -4,28 +4,34 @@ const db = require("../models");
 // Set up CRUD methods to connect with the database
 module.exports = {
     search: function(req, res) {
-        db.Book
-            .find(req.query)
-            .then(dbModel = res.json(dbModel))
-            .catch(err => res.json(err))
+      db.Book
+        .find(req.query)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
+    },
+    findById: function(req, res) {
+      db.Book
+        .findById(req.params.id)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
     },
     create: function(req, res) {
-        db.Book
-            .create(req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.json(err))
+      db.Book
+        .create(req.body)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
     },
     update: function(req, res) {
-        db.Book
-            .findOneAneUpdate({_id: req.params.id}, req.body)
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.json(err))
+      db.Book
+        .findOneAndUpdate({ _id: req.params.id }, req.body)
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
     },
     delete: function(req, res) {
-        db.Book
-            .findById({_id: req.params.id})
-            .then(dbModel => dbModel.remove())
-            .then(dbModel => res.json(dbModel))
-            .catch(err => res.json(err))
+      db.Book
+        .findById({ _id: req.params.id })
+        .then(dbModel => dbModel.remove())
+        .then(dbModel => res.json(dbModel))
+        .catch(err => res.status(422).json(err));
     }
-};
+  };

@@ -1,6 +1,6 @@
 import React from "react";
 import { Button } from "./Button";
-import { Link } from "react-router-dom"
+// import { Link } from "react-router-dom"
 import "./ListItem.css";
 
 export const ListItem = props => (
@@ -8,10 +8,10 @@ export const ListItem = props => (
     <div className="card-deck">
         <div className="card">
             <div className="form horiz">
-            <img className="coverImage" alt="coverimage" src={props.image || 'https://placehold.it/300x300'} />
-            <Link to={"/books/" + props.id}>
+            <img className="coverImage" alt="coverimage" src={props.image || require("../../images/open_book.jpg")} />
+            {/* <Link to={"/books/" + props._id}> */}
                 <Button className="btn btn-default saveBtn" onClick={props.click}>{props.buttonName}</Button>
-            </Link>
+            {/* </Link> */}
                 <a className="btn btn-info infoBtn" role="button" href={props.link} target="_blank">Book Info</a>
             </div>
             <div className="card-body">

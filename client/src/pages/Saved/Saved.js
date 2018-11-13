@@ -3,12 +3,11 @@ import Jumbotron from "../../components/Jumbotron";
 import Navbar from "../../components/Navbar";
 import API from "../../utils/API";
 import { Container, Col, Row } from "../../components/Grid";
-import { List, ListItem } from "../../components/List"; 
+import { List } from "../../components/List"; 
 
 class Saved extends Component {
     state = {
-        book: {},
-        saved: true
+        book: {}
       };
 
     deleteBook = id => {
@@ -21,11 +20,11 @@ class Saved extends Component {
         window.location.reload();
     }
 
-    //   componentDidMount() {
-    //     API.getBook(this.props.match.params.id)
-    //       .then(res => this.setState({ book: res.data.items }))
-    //       .catch(err => console.log(err));
-    //   }
+    // componentWillMount() {
+    // API.getBook(this.props.match.params.id)
+    //     .then(res => this.setState({ book: res.data.items }))
+    //     .catch(err => console.log(err));
+    // }
 
     render() {
         return (
@@ -41,9 +40,16 @@ class Saved extends Component {
                         <Row>
                             <Col size="xs-12">
                                 <List>
-                                    <ListItem>
-                                        {/* <p>Saved Books Go Here</p> */}
-                                    </ListItem>
+                                    {/* <ListItem
+                                        key={this._id}
+                                        title={this.title}
+                                        author={this.authors}
+                                        description={this.description}
+                                        image={this.thumbnail}
+                                        link={this.infoLink}
+                                        buttonName="Delete"
+                                        click={this.handleSaveBook}>
+                                    </ListItem> */}
                                 </List>
                             </Col>
                         </Row>

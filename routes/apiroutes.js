@@ -11,14 +11,14 @@ router.get('/books/:name', async (req, res) => {
 })
 
 // Matches with "/api/books"
-router.route("/")
+router.route("/books/:name")
   .get(booksController.search)
   .post(booksController.create);
 
 // Matches with "/api/books/:id"
 router
   .route("/:id")
-  .post(booksController.create)
+  .get(booksController.findById)
   .put(booksController.update)
   .delete(booksController.delete);
 

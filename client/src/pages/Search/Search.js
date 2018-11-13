@@ -10,13 +10,7 @@ import { List, ListItem } from "../../components/List";
 class Search extends Component {
     state = {
         books: [],
-        bookSearch: "",
-        title: "", 
-        author: "", 
-        description: "",
-        link: "",
-        image: "",
-        saved: false
+        bookSearch: ""
     };
 
     handleInput = event => {
@@ -31,43 +25,35 @@ class Search extends Component {
         .then(res => {
             console.log(res.data.items);
             this.setState({ 
-                books: res.data.items, 
-                title: "", 
-                author: "", 
-                description: "", 
-                link: "", 
-                image: "" 
+                books: res.data.items
             });
         })
         .catch(err => console.log(err))
-    }
-
-    handleSaveBook = event => {
-        event.preventDefault();
-        API.saveBook({
-            title: this.state.title,
-            author: this.state.author,
-            description: this.state.description,
-            link: this.state.link,
-            image: this.state.image,
-            saved: true
-        })
-        .then(res => {
-            console.log("book has been saved")
-            this.loadBooks()
-        })
-        .catch(err => console.log(err));    
     };
+
+    // handleSaveBook = id => {
+    //     this.state.books.map(book => {
+    //         let newBook = book.volumeInfo;
+    //         console.log(book.id);
+    //         if(book.id) {
+    //             API.saveBook(id, {
+    //                 title: newBook.title, 
+    //                 author: newBook.authors,
+    //                 description: newBook.description,
+    //                 link: newBook.infoLink,
+    //                 image: newBook.imageLinks.thumbnail
+    //             })
+    //             .then(res => {
+    //                 console.log(res);
+    //             })
+    //             .catch(err => console.log(err));
+    //         }
+    //     });    
+    // };
 
     handleSubmitBook = event => {
         event.preventDefault();
         this.loadBooks();
-        // API.getBooks(this.state.bookSearch)
-        // .then(res => {
-        //     console.log(res.data.items);
-        //     this.setState({ books: res.data.items });
-        // })
-        // .catch(err => console.log(err))
     };
 
     render() {
@@ -112,6 +98,7 @@ class Search extends Component {
                                 {this.state.books.map(book => (
                                     <ListItem 
                                         key={book.id}
+                                        id={book.id}
                                         title={book.volumeInfo.title}
                                         author={book.volumeInfo.authors}
                                         description={book.volumeInfo.description}
@@ -131,7 +118,7 @@ class Search extends Component {
                 </Container>
             </div>
         )
-    }
-}
+    };
+};
 
 export default Search;
