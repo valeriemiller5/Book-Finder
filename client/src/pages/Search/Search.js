@@ -20,20 +20,7 @@ class Search extends Component {
         })
     };
 
-    loadBooks = () => {
-        API.getBooks(this.state.bookSearch)
-        .then(res => {
-            console.log(res.data.items);
-            this.setState({ 
-                books: res.data.items
-            });
-        })
-        .catch(err => console.log(err))
-    };
-
-    // Save the information for the book selected by clicking the "Save Book" button
-    // Currently, this throws a 404 error
-    handleSaveBook = req => {
+    saveBook = req => {
         this.state.books.map(book => {
             let newBook = book.volumeInfo;
             console.log(book.id);
@@ -54,7 +41,18 @@ class Search extends Component {
 
     handleSubmitBook = event => {
         event.preventDefault();
-        this.loadBooks();
+        API.getBooks(this.state.bookSearch)
+        .then(res => {
+            console.log(res.data.items);
+            this.setState({ 
+                books: res.data.items
+            });
+        })
+        .then(response => {
+            console.log(response);
+            this.saveBook();
+        })
+        .catch(err => console.log(err))
     };
 
     render() {
