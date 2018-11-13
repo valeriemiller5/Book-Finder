@@ -31,25 +31,26 @@ class Search extends Component {
         .catch(err => console.log(err))
     };
 
-    // handleSaveBook = id => {
-    //     this.state.books.map(book => {
-    //         let newBook = book.volumeInfo;
-    //         console.log(book.id);
-    //         if(book.id) {
-    //             API.saveBook(id, {
-    //                 title: newBook.title, 
-    //                 author: newBook.authors,
-    //                 description: newBook.description,
-    //                 link: newBook.infoLink,
-    //                 image: newBook.imageLinks.thumbnail
-    //             })
-    //             .then(res => {
-    //                 console.log(res);
-    //             })
-    //             .catch(err => console.log(err));
-    //         }
-    //     });    
-    // };
+    // Save the information for the book selected by clicking the "Save Book" button
+    // Currently, this throws a 404 error
+    handleSaveBook = req => {
+        this.state.books.map(book => {
+            let newBook = book.volumeInfo;
+            console.log(book.id);
+            API.saveBook({
+                title: newBook.title, 
+                author: newBook.authors,
+                description: newBook.description,
+                link: newBook.infoLink,
+                image: newBook.imageLinks.thumbnail
+            })
+            .then(res => {
+                console.log(res);
+                return res;
+            })
+            .catch(err => console.log(err))
+        });    
+    };
 
     handleSubmitBook = event => {
         event.preventDefault();

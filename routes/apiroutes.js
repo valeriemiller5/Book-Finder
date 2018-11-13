@@ -11,7 +11,7 @@ router.get('/books/:name', async (req, res) => {
 })
 
 // Matches with "/api/books"
-router.route("/books/:name")
+router.route("/books")
   .get(booksController.search)
   .post(booksController.create);
 
