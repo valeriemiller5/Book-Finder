@@ -3,28 +3,32 @@ import Jumbotron from "../../components/Jumbotron";
 import Navbar from "../../components/Navbar";
 import API from "../../utils/API";
 import { Container, Col, Row } from "../../components/Grid";
-import { List } from "../../components/List"; 
+import { List, ListItem } from "../../components/List"; 
 
 class Saved extends Component {
     state = {
         book: {}
       };
 
-    deleteBook = id => {
+    handleDeleteBook = id => {
     API.deleteBook(id)
-        .then(res => this.loadPage())
+        .then(res => this.loadBook())
         .catch(err => console.log(err));
     };
 
-    loadPage = () => {
-        window.location.reload();
+    loadBook = id => {
+        API.getBook(id)
+          .then(res => {
+            console.log(res.data);
+            this.setState({ book: res.data })
+        }
+          
+        )
     }
 
-    // componentWillMount() {
-    // API.getBook(this.props.match.params.id)
-    //     .then(res => this.setState({ book: res.data.items }))
-    //     .catch(err => console.log(err));
-    // }
+    componentDidMount() {
+        this.loadBook(this.props.match.params.id);
+    }
 
     render() {
         return (
@@ -40,16 +44,16 @@ class Saved extends Component {
                         <Row>
                             <Col size="xs-12">
                                 <List>
-                                    {/* <ListItem
-                                        key={this._id}
-                                        title={this.title}
-                                        author={this.authors}
-                                        description={this.description}
-                                        image={this.thumbnail}
-                                        link={this.infoLink}
+                                    <ListItem
+                                        key={this.state.book._id}
+                                        title={this.state.book.title}
+                                        author={this.state.book.authors}
+                                        description={this.state.book.description}
+                                        image={this.state.book.thumbnail}
+                                        link={this.state.book.infoLink}
                                         buttonName="Delete"
-                                        click={this.handleSaveBook}>
-                                    </ListItem> */}
+                                        click={this.handleDeleteBook}>
+                                    </ListItem>
                                 </List>
                             </Col>
                         </Row>

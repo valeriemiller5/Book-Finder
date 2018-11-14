@@ -20,6 +20,11 @@ class Search extends Component {
         })
     };
 
+    // handleSaveBook = id => {
+    //     API.updateBook(id, {saved: true})
+    //     .then(res => console.log(res))
+    // }
+
     loadBook = req => {
         this.state.books.map(book => {
             let newBook = book.volumeInfo;
@@ -33,7 +38,7 @@ class Search extends Component {
             })
             .then(res => {
                 console.log(res);
-                return res.render();
+                // return res.render();
             })
             .catch(err => console.log(err))
         });    
@@ -97,7 +102,7 @@ class Search extends Component {
                                 {this.state.books.map(book => (
                                     <ListItem 
                                         key={book.id}
-                                        id={book.id}
+                                        id={book._id}
                                         title={book.volumeInfo.title}
                                         author={book.volumeInfo.authors}
                                         description={book.volumeInfo.description}
