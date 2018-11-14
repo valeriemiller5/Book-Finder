@@ -10,6 +10,7 @@ module.exports = {
         .catch(err => res.json(err));
     },
     findById: function(req, res) {
+      console.log(req.params.id)
       db.Book
         .findById(req.params.id)
         .then(dbModel => res.json(dbModel))

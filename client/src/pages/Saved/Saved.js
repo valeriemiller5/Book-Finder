@@ -10,6 +10,11 @@ class Saved extends Component {
         book: {}
       };
 
+    componentDidMount() {
+        this.loadBook(this.props.match.params.id)
+        console.log(this.props.match.params.id)
+    }
+
     handleDeleteBook = id => {
     API.deleteBook(id)
         .then(res => this.loadBook())
@@ -17,17 +22,19 @@ class Saved extends Component {
     };
 
     loadBook = id => {
+        console.log(id);
         API.getBook(id)
-          .then(res => {
-            console.log(res.data);
-            this.setState({ book: res.data })
-        }
-          
-        )
-    }
-
-    componentDidMount() {
-        this.loadBook(this.props.match.params.id);
+        .then(res => {
+            console.log(res)
+            this.setState({
+                book: res.data,
+                title: res.data.title, 
+                author: res.data.author,
+                description: res.data.description,
+                link: res.data.link,
+                image: res.data.image 
+            })
+        })
     }
 
     render() {

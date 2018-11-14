@@ -20,28 +20,28 @@ class Search extends Component {
         })
     };
 
-    // handleSaveBook = id => {
-    //     API.updateBook(id, {saved: true})
-    //     .then(res => console.log(res))
-    // }
-
-    loadBook = req => {
-        this.state.books.map(book => {
-            let newBook = book.volumeInfo;
-            console.log(book.id);
-            API.saveBook({
-                title: newBook.title, 
-                author: newBook.authors,
-                description: newBook.description,
-                link: newBook.infoLink,
-                image: newBook.imageLinks.thumbnail
-            })
-            .then(res => {
-                console.log(res);
-                // return res.render();
-            })
-            .catch(err => console.log(err))
-        });    
+    handleSaveBook = event => {
+        event.preventDefault();
+        let newBook = this.state.books
+        let save = event.target.getAttribute('id');
+        newBook.map(book => {
+            // console.log(book)
+            if(save === book.id) {
+                // console.log(book)
+                API.createBook({
+                    title: book.volumeInfo.title, 
+                    author: book.volumeInfo.authors,
+                    description: book.volumeInfo.description,
+                    link: book.volumeInfo.infoLink,
+                    image: book.volumeInfo.imageLinks.thumbnail
+                })
+                .then(res => {
+                    console.log(res.data._id);
+                    window.location.replace("/books/" + res.data._id);
+                })
+                .catch(err => console.log(err))
+                }
+        })
     };
 
     handleSubmitBook = event => {
@@ -52,10 +52,6 @@ class Search extends Component {
             this.setState({ 
                 books: res.data.items
             });
-        })
-        .then(response => {
-            console.log(response);
-            this.loadBook();
         })
         .catch(err => console.log(err))
     };
@@ -78,7 +74,7 @@ class Search extends Component {
                                                 name="bookSearch"
                                                 value={this.state.bookSearch}
                                                 onChange={this.handleInput}
-                                                placeholder="Search for book by title"
+                                                placeholder="Search for book by title or author"
                                             />
                                         </Col>
                                         <Col size="xs-3 sm-2">
@@ -102,16 +98,17 @@ class Search extends Component {
                                 {this.state.books.map(book => (
                                     <ListItem 
                                         key={book.id}
-                                        id={book._id}
+                                        id={book.id}
                                         title={book.volumeInfo.title}
                                         author={book.volumeInfo.authors}
                                         description={book.volumeInfo.description}
                                         image={book.volumeInfo.imageLinks.thumbnail}
                                         link={book.volumeInfo.infoLink}
                                         buttonName="Save Book"
-                                        click={this.handleSaveBook}>
+                                        click={this.handleSaveBook}
+                                        >
                                     </ListItem>
-                                ))}
+                                 ))}
                             </List>
                         </Col>
                     </Row>
