@@ -33,6 +33,7 @@ This is a MERN app built with:
 * React.js
 * Node.js
 * Bootstrap - CSS library used for easier styling
+* Google Books API
 
 ## Authors
 Valerie Flores - Initial work
