@@ -4,6 +4,7 @@ import Navbar from "../../components/Navbar";
 import API from "../../utils/API";
 import { Container, Col, Row } from "../../components/Grid";
 import { List, ListItem } from "../../components/List"; 
+import { SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG } from "constants";
 
 class Saved extends Component {
     state = {
@@ -22,12 +23,16 @@ class Saved extends Component {
     };
 
     loadBook = id => {
+        // This console logs the correct MongoDB _id in the database for the corresponding book that was "saved" on the Search.js page
         console.log(id);
         API.getBook(id)
         .then(res => {
+            // This console log is not returning the expected object from the MongoDB database. Instead, it is returning an object with information on this function.
             console.log(res)
             this.setState({
+                // res.data only renders an object with the information {"kind":"books#volumes","totalItems":0}
                 book: res.data,
+                // These values do not render as they are not in the object that is fetched from the database
                 title: res.data.title, 
                 author: res.data.author,
                 description: res.data.description,
@@ -47,6 +52,7 @@ class Saved extends Component {
                 <Container>
                     <h4>Saved Books:</h4>
                     <br></br>
+                    {/* Since the correct information is not being fetched from the database, the list of saved books never renders */}
                     {this.state.book.length ? (
                         <Row>
                             <Col size="xs-12">
