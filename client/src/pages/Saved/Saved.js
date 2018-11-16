@@ -4,35 +4,40 @@ import Navbar from "../../components/Navbar";
 import API from "../../utils/API";
 import { Container, Col, Row } from "../../components/Grid";
 import { List, ListItem } from "../../components/List"; 
-import { SSL_OP_NETSCAPE_REUSE_CIPHER_CHANGE_BUG } from "constants";
 
 class Saved extends Component {
     state = {
         book: {}
       };
 
-    componentDidMount() {
-        this.loadBook(this.props.match.params.id)
-        console.log(this.props.match.params.id)
+    componentWillMount() {
+        this.loadBook()
     }
 
-    handleDeleteBook = id => {
-    API.deleteBook(id)
-        .then(res => this.loadBook())
-        .catch(err => console.log(err));
+    handleDeleteBook = event => {
+        event.preventDefault();
+        let deleteBook = this.state.book
+        let remove = event.target.getAttribute('id');
+        console.log(remove);
+        deleteBook.map(book => {
+            if(remove === book._id) {
+                console.log(book)
+                API.deleteBook({_id: book._id})
+                .then(res => {
+                    console.log('book removed');
+                    window.location.reload();
+                })
+                .catch(err => console.log(err))
+                }
+        })
     };
 
-    loadBook = id => {
-        // This console logs the correct MongoDB _id in the database for the corresponding book that was "saved" on the Search.js page
-        console.log(id);
-        API.getBook(id)
+    loadBook = () => {
+        API.getBook()
         .then(res => {
-            // This console log is not returning the expected object from the MongoDB database. Instead, it is returning an object with information on this function.
-            console.log(res)
+            console.log(res.data)
             this.setState({
-                // res.data only renders an object with the information {"kind":"books#volumes","totalItems":0}
                 book: res.data,
-                // These values do not render as they are not in the object that is fetched from the database
                 title: res.data.title, 
                 author: res.data.author,
                 description: res.data.description,
@@ -57,16 +62,20 @@ class Saved extends Component {
                         <Row>
                             <Col size="xs-12">
                                 <List>
-                                    <ListItem
-                                        key={this.state.book._id}
-                                        title={this.state.book.title}
-                                        author={this.state.book.authors}
-                                        description={this.state.book.description}
-                                        image={this.state.book.thumbnail}
-                                        link={this.state.book.infoLink}
-                                        buttonName="Delete"
-                                        click={this.handleDeleteBook}>
-                                    </ListItem>
+                                    {this.state.book.map(mybook => (
+                                        <ListItem 
+                                            key={mybook._id}
+                                            id={mybook._id}
+                                            title={mybook.title}
+                                            author={mybook.author}
+                                            description={mybook.description}
+                                            image={mybook.image}
+                                            link={mybook.link}
+                                            buttonName="Delete"
+                                            click={this.handleDeleteBook}
+                                            >
+                                        </ListItem>
+                                    ))}
                                 </List>
                             </Col>
                         </Row>
