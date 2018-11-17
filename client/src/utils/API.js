@@ -6,9 +6,8 @@ export default {
         return axios.get(`/api/books/${query}`)
     },
     // Get all saved books from the database 
-    getBook: function() {
-        console.log();
-        return axios.get("/api/books/");
+    getBook: function(id) {
+        return axios.get("/api/saved/" + id);
     },
     // Saves a book to the database
     createBook: function(bookData) {
@@ -16,7 +15,7 @@ export default {
         return axios.post("/api/books", bookData);
     },
     // Delete a book from the database
-    deleteBook: function() {
-        return axios.delete("/api/books/");
+    deleteBook: function(id) {
+        return axios.delete("/api/saved/" + id);
     }
 };

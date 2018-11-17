@@ -13,14 +13,14 @@ router.get('/books/:name', async (req, res) => {
 // Matches with "/api/books"
 router.route("/books/")
   .get(booksController.search)
-  .post(booksController.create)
-  .delete(booksController.delete);
+  .post(booksController.create);
 
-// Matches with "/api/books/:id"
+// Matches with "/api/saved/:id"
 router
-  .route("/:id")
+  .route("/saved/:id")
   .get(booksController.search)
   .put(booksController.update)
-  .delete(booksController.delete);
+  .delete(booksController.delete)
+  .post(booksController.create);
 
 module.exports = router;

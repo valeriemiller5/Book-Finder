@@ -37,7 +37,7 @@ class Search extends Component {
                 })
                 .then(res => {
                     console.log(res.data._id);
-                    window.location.replace("/books/saved");
+                    window.location.replace("/saved/:id");
                 })
                 .catch(err => console.log(err))
                 }

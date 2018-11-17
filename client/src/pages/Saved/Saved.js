@@ -10,26 +10,18 @@ class Saved extends Component {
         book: {}
       };
 
-    componentWillMount() {
+    componentDidMount() {
         this.loadBook()
     }
 
-    handleDeleteBook = event => {
-        event.preventDefault();
-        let deleteBook = this.state.book
-        let remove = event.target.getAttribute('id');
-        console.log(remove);
-        deleteBook.map(book => {
-            if(remove === book._id) {
-                console.log(book)
-                API.deleteBook({_id: book._id})
-                .then(res => {
-                    console.log('book removed');
-                    window.location.reload();
-                })
-                .catch(err => console.log(err))
-                }
-        })
+    handleDeleteBook = async id => {
+        // console.log(id)
+        await API.deleteBook(id)
+          .then(res => {
+              this.loadBook()
+              window.location.reload();
+            })
+          .catch(err => console.log(err));
     };
 
     loadBook = () => {
@@ -72,7 +64,7 @@ class Saved extends Component {
                                             image={mybook.image}
                                             link={mybook.link}
                                             buttonName="Delete"
-                                            click={this.handleDeleteBook}
+                                            click={() => this.handleDeleteBook(mybook._id)}
                                             >
                                         </ListItem>
                                     ))}
