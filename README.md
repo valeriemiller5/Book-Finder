@@ -23,7 +23,11 @@ Connecting to the MongoDB database also proved to be challenging, again, ensurin
 
 ![Opening Screen Shot](client/src/images/mLab.gif)
 
-A current issue is saving an individual book - due to time spent on the API and connecting to the database, the current goal is to save a book by id when the "Save Book" button is clicked.
+Since the design of this app is to save only books that the user wants to save, and not every book that is returned from the API, working the code so that it would drill down to an individual book, then determining how to save it to the database was challenging.
+
+Once the book was saved, another challenge was determining how to render the saved books onto the Saved page, then how to delete unwanted books from the Saved book list (turns out, simply including the _id of the book on the onClick function would have saved a lot of time...).
+
+NOTE:  Since mongoose saves each book with a unique _id, it is possible to save the same book more than once.  Updated versions of this code will include more parameters to exclude duplicate books appearing on the Saved book list.  Another issue is with the Google Books API - the path to add an image is `data.volumeInfo.infoLink.thumbnail`.  This is the same for all books from the API, however, some of the titles do not recognize this and will cause the app to time out (an error message appears when in Developer view).
 
 ## Built With
 This is a MERN app built with:
