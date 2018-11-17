@@ -15,7 +15,7 @@ const Navbar = () => (
             </a>
         </li>
         <li className="nav-item active">
-            <a className="nav-link" href="/books/saved">
+            <a className="nav-link" href="/saved/:id">
                 Saved
             </a>
         </li>
