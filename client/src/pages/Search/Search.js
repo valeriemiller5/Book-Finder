@@ -30,7 +30,7 @@ class Search extends Component {
                 // console.log(book)
                 API.createBook({
                     title: book.volumeInfo.title, 
-                    author: book.volumeInfo.authors,
+                    author: book.volumeInfo.authors[0],
                     description: book.volumeInfo.description,
                     link: book.volumeInfo.infoLink,
                     image: book.volumeInfo.imageLinks.thumbnail
@@ -102,7 +102,7 @@ class Search extends Component {
                                         title={book.volumeInfo.title}
                                         author={book.volumeInfo.authors}
                                         description={book.volumeInfo.description}
-                                        image={book.volumeInfo.imageLinks.thumbnail}
+                                        image={book.volumeInfo.imageLinks === undefined ? "" : book.volumeInfo.imageLinks.thumbnail}
                                         link={book.volumeInfo.infoLink}
                                         buttonName="Save Book"
                                         click={this.handleSaveBook}

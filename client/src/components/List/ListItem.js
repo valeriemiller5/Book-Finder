@@ -7,7 +7,7 @@ export const ListItem = props => (
     <div className="card-deck">
         <div className="card">
             <div className="form horiz">
-            <img className="coverImage" alt="coverimage" src={props.image || require("../../images/open_book.jpg")} />
+            <img className="coverImage" alt="coverimage" src={(props.image) ? props.image : require("../../images/open_book.jpg")} />
                 <Button id={props.id} className="btn btn-default saveBtn" onClick={props.click}>{props.buttonName}</Button>
                 <a className="btn btn-info infoBtn" role="button" href={props.link} target="_blank">Book Info</a>
             </div>

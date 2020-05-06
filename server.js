@@ -23,7 +23,7 @@ app.get("*", (req, res) => {
 
 // Mongoose connection to MongoDB
 const MONGODB_URI = process.env.MONGODB_URI || "mongodb://localhost/googlebooks";
-mongoose.connect(MONGODB_URI, { useNewUrlParser: true });
+mongoose.connect(MONGODB_URI, { useNewUrlParser: true, useUnifiedTopology: true });
 
 app.listen(PORT, () => {
   console.log(`🌎 ==> Server now on port ${PORT}!`);
